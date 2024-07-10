@@ -12,14 +12,15 @@ if "messages" not in st.session_state:
     st.session_state.messages = [
         {
             "role": "system",
-            "content": "こんにちは ！ どうぞお話ししてください。",
+            "content": "Be concise, and reply like a poet.",
         }
     ]
 
-# Display chat messages from history on app rerun
+# Display chat messages from history on app rerun, excluding system messages
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+    if message["role"] != "system":
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
 
 
 def get_response(messages):
