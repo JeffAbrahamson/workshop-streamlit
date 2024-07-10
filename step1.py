@@ -1,6 +1,12 @@
+import os
+import pprint
+
 import streamlit as st
+from openai import OpenAI
 
 st.title("Echo")
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -13,7 +19,14 @@ for message in st.session_state.messages:
 
 
 def get_response(prompt):
-    return f"You said: {prompt}"
+    chat_completion = client.chat.completions.create(
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt},
+        ],
+        model="gpt-3.5-turbo",
+    )
+    return chat_completion.choices[0].message.content
 
 
 # React to user input
