@@ -10,7 +10,10 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "system", "content": "You are a helpful assistant."}
+        {
+            "role": "system",
+            "content": "こんにちは ！ どうぞお話ししてください。",
+        }
     ]
 
 # Display chat messages from history on app rerun
